@@ -5,6 +5,9 @@ const logger       = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser   = require('body-parser');
 const mongoose     = require ('mongoose');
+//npm install cors --save
+const cors         = require('cors');
+
 
 mongoose.connect('mongodb://localhost/phone-app');
 const app = express();
@@ -23,6 +26,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+
+
+//must be before the routes that will accept cross origin requests
+app.use(cors());
 
 const index = require('./routes/index');
 app.use('/', index);
